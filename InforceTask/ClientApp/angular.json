@@ -129,5 +129,7 @@
       }
     }
   },
-  "defaultProject": "InforceTask"
+  "cli": {
+    "analytics": false
+  }
 }
