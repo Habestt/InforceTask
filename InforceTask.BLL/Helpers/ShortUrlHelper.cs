@@ -8,7 +8,7 @@ namespace InforceTask.BLL.Helpers
 {
     public class ShortUrlHelper
     {
-        private const string Alphabet = "23456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ-_";
+        private static readonly string Alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
         private static readonly int Base = Alphabet.Length;
 
         public static string Encode(int num)

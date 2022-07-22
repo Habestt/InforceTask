@@ -1,0 +1,20 @@
+<h1>All URLs</h1>
+
+<p *ngIf="!urls"><em>Loading...</em></p>
+
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="urls">
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Shorted URL</th>
+      <th>Created date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let url of urls">
+      <td>{{ url.originalUrl }}</td>
+      <td>{{ url.shortUrl }}</td>
+      <td>{{ url.createdAt }}</td>
+    </tr>
+  </tbody>
+</table>

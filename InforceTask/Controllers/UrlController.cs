@@ -1,5 +1,6 @@
 ﻿using InforceTask.BLL.DTOs;
 using InforceTask.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,37 +10,34 @@ namespace InforceTask.Controllers
     [ApiController]
     public class UrlController : ControllerBase
     {
-        private readonly IURLService _urlService;
+        private IURLService _urlService;
         public UrlController(IURLService urlService)
         {
             _urlService = urlService;
         }
 
-        [HttpPost("create")]
-        public async Task Create([FromBody] string originalUrl)
-        {
-            var shortUrl = new CreateShortUrlDTO
-            {
-                OriginalUrl = originalUrl
-            };
-            await _urlService.Add(shortUrl);
-            
+        [HttpPost("create")]        
+        public async Task Create([FromBody] CreateShortUrlDTO createUrl)
+        {            
+            await _urlService.Add(createUrl);            
         }
 
         [HttpGet("GetByOriginalUrl")]
-        public Task<URLDTO> GetByOriginalUrl(string url)
+        public async Task<URLDTO> GetByOriginalUrl(string url)
         {
-            var shortUrl = _urlService.GetByOriginalUrl(url);            
-
-            return shortUrl;
+            return await _urlService.GetByOriginalUrl(url);
         }
 
         [HttpGet("GetByShortUrl")]
-        public Task<URLDTO> GetByShortUrl(string url)
+        public async Task<URLDTO> GetByShortUrl(string url)
         {
-            var shortUrl = _urlService.GetByShortUrl(url);
+            return await _urlService.GetByShortUrl(url);
+        }
 
-            return shortUrl;
+        [HttpGet("GetAll")]
+        public async Task<IEnumerable<URLDTO>> GetAllUrls()
+        {
+            return await _urlService.GetAllUrls();
         }
     }
 }

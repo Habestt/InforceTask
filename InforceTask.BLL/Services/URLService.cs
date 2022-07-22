@@ -46,8 +46,26 @@ namespace InforceTask.BLL.Services
                     return shortUrlDto;
                 }
             }
-
             return null;
+        }
+
+        public async Task<IEnumerable<URLDTO>> GetAllUrls()
+        {
+            var URLs = await _urlRepository.GetAllAsync();
+
+            List<URLDTO> urlDtos = new List<URLDTO>();
+
+            foreach (var url in URLs)
+            {
+                urlDtos.Add(new URLDTO()
+                {
+                    OriginalUrl = url.OriginalUrl,
+                    ShortUrl = ShortUrlHelper.Encode(url.Id),
+                    CreatedAt = url.CreatedAt
+                });
+            }
+
+            return urlDtos;
         }
 
         public async Task Add(CreateShortUrlDTO entity)

@@ -8,15 +8,17 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
-import { ShortURL } from './short-url/short-url.component';
+import { ShortURLComponent } from './short-url/short-url.component';
+import { AllUrlsComponent } from './all-urls/all-urls.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,    
-    ShortURL
+    CounterComponent,
+    ShortURLComponent,
+    AllUrlsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -24,11 +26,12 @@ import { ShortURL } from './short-url/short-url.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },      
-      { path: 'short-url', component: ShortURL },
-    ])
+      { path: 'counter', component: CounterComponent },
+      { path: 'short-url', component: ShortURLComponent },
+      { path: 'all-urls', component: AllUrlsComponent },
+    ]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

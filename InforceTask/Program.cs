@@ -1,3 +1,6 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using InforceTask.BLL.Configurations.Autofac;
 using InforceTask.DAL.Configuration;
 using InforceTask.DAL.Context;
 using InforceTask.DAL.Models;
@@ -23,9 +26,15 @@ builder.Services.AddIdentity<User, IdentityRole>(opts =>
     opts.Password.RequireDigit = true;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
-    
+
 
 // Add services to the container.
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
+    builder.RegisterModule(new Container());
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -39,14 +48,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 SampleData.Initialize(app);
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCors(x => x
-            .AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .AllowAnyOrigin());
 
 app.MapControllerRoute(
     name: "default",
