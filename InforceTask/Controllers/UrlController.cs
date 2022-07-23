@@ -39,5 +39,11 @@ namespace InforceTask.Controllers
         {
             return await _urlService.GetAllUrls();
         }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task DeleteUrl(int id)
+        {
+            await _urlService.delete(id);
+        }
     }
 }

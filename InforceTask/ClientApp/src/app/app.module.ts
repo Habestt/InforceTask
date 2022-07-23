@@ -5,11 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { ShortURLComponent } from './short-url/short-url.component';
-import { AllUrlsComponent } from './all-urls/all-urls.component';
+import { NavMenuComponent } from './global/components/nav-menu/nav-menu.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CounterComponent } from './pages/counter/counter.component';
+import { ShortURLComponent } from './pages/short-url/short-url.component';
+import { AllUrlsComponent } from './pages/all-urls/all-urls.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { UrlsEffects } from './state/url/url.effects';
+import { urlsReducer } from './state//url/url.reducer';
 
 @NgModule({
   declarations: [
@@ -18,11 +22,13 @@ import { AllUrlsComponent } from './all-urls/all-urls.component';
     HomeComponent,
     CounterComponent,
     ShortURLComponent,
-    AllUrlsComponent
+    AllUrlsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    StoreModule.forRoot({urls: urlsReducer}),
+    EffectsModule.forRoot([UrlsEffects]),
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,6 +36,7 @@ import { AllUrlsComponent } from './all-urls/all-urls.component';
       { path: 'short-url', component: ShortURLComponent },
       { path: 'all-urls', component: AllUrlsComponent },
     ]),
+
   ],
   providers: [],
   bootstrap: [AppComponent],

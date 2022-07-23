@@ -59,6 +59,7 @@ namespace InforceTask.BLL.Services
             {
                 urlDtos.Add(new URLDTO()
                 {
+                    Id = url.Id,
                     OriginalUrl = url.OriginalUrl,
                     ShortUrl = ShortUrlHelper.Encode(url.Id),
                     CreatedAt = url.CreatedAt
@@ -70,8 +71,13 @@ namespace InforceTask.BLL.Services
 
         public async Task Add(CreateShortUrlDTO entity)
         {
-
             await _urlRepository.AddAsync(AutoMapper<CreateShortUrlDTO, URL>.Map(entity));
+        }
+
+        public async Task delete(int id)
+        {
+            URL url = await _urlRepository.GetByIdAsync(id);
+            await _urlRepository.RemoveAsync(url);
         }
     }
 }
