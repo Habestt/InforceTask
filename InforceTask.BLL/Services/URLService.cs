@@ -51,7 +51,7 @@ namespace InforceTask.BLL.Services
 
         public async Task<IEnumerable<URLDTO>> GetAllUrls()
         {
-            var URLs = await _urlRepository.GetAllAsync();
+            IEnumerable<URL> URLs = await _urlRepository.GetAllAsync();
 
             List<URLDTO> urlDtos = new List<URLDTO>();
 

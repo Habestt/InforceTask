@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 export class ShortURLComponent {
   constructor(private http: HttpClient) {}
 
-  async Add(OriginalUrl: string) {
+  Add(OriginalUrl: string) {
     return this.http
       .post(environment.Url + 'url/create', OriginalUrl)
       .subscribe();

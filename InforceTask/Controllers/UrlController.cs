@@ -22,13 +22,13 @@ namespace InforceTask.Controllers
             await _urlService.Add(createUrl);            
         }
 
-        [HttpGet("GetByOriginalUrl")]
+        [HttpGet("GetByOriginalUrl/{url}")]
         public async Task<URLDTO> GetByOriginalUrl(string url)
         {
             return await _urlService.GetByOriginalUrl(url);
         }
 
-        [HttpGet("GetByShortUrl")]
+        [HttpGet("GetByShortUrl/{url}")]
         public async Task<URLDTO> GetByShortUrl(string url)
         {
             return await _urlService.GetByShortUrl(url);

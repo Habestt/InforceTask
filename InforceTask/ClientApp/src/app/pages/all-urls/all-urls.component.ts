@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Url } from '../../global/models/url';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/app.state';
 import { getUrls } from 'src/app/state/url/url.selector';
 import { deleteUrl, loadUrls } from 'src/app/state/url/url.actions';
+import { UrlInfoComponent } from '../url-info/url-info.component';
 
 @Component({
   selector: 'app-all-urls',
@@ -15,12 +14,13 @@ import { deleteUrl, loadUrls } from 'src/app/state/url/url.actions';
 export class AllUrlsComponent implements OnInit {
   urls?: Observable<Url[]>;
 
-  constructor(private store: Store<AppState>, private http: HttpClient) {}
+  @ViewChild(UrlInfoComponent) child: any;
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.urls = this.store.select(getUrls);
     this.store.dispatch(loadUrls());
-    console.log(this.urls);
   }
 
   delete(url: Url) {

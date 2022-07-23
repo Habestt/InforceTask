@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { UrlsEffects } from './state/url/url.effects';
 import { urlsReducer } from './state//url/url.reducer';
+import { UrlInfoComponent } from './pages/url-info/url-info.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { urlsReducer } from './state//url/url.reducer';
     CounterComponent,
     ShortURLComponent,
     AllUrlsComponent,
+    UrlInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +37,7 @@ import { urlsReducer } from './state//url/url.reducer';
       { path: 'counter', component: CounterComponent },
       { path: 'short-url', component: ShortURLComponent },
       { path: 'all-urls', component: AllUrlsComponent },
+      { path: 'url-info', component: UrlInfoComponent },
     ]),
 
   ],
