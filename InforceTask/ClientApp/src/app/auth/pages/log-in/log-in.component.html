@@ -1,26 +1,56 @@
-<h3>Sign up</h3>
-<form #signUpForm="ngForm" (ngSubmit)="logIn(signUpForm.value)">
-  <div class="form-group">
-    <label for="logInEmail">Email</label>
-    <input
-      type="email"
-      ngModel
-      name="email"
-      required
-      #email="ngModel"
-      placeholder="Enter email"
-    />
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h3>Log in</h3>
+    <hr />
+    <form #logInForm="ngForm" (ngSubmit)="logIn(logInForm.value)">
+      <div class="mb-3">
+        <label>Email</label>
+        <input
+          type="email"
+          ngModel
+          name="email"
+          class="form-control"
+          required
+          email
+          #email="ngModel"
+          placeholder="Enter email"
+        />
+        <span class="error" *ngIf="email.errors?.required && email.touched"
+          >Email is required</span
+        >
+        <span class="error" *ngIf="email.errors?.email && email.touched"
+          >Email is invalid</span
+        >
+      </div>
+
+      <div class="mb-3">
+        <label>Password</label>
+        <input
+          type="password"
+          ngModel
+          name="password"
+          class="form-control"
+          required
+          minlength="6"
+          #password="ngModel"
+          placeholder="Password"
+        />
+        <span class="error" *ngIf="password.errors?.required && password.touched"
+          >Password is required</span
+        >
+        <span class="error" *ngIf="password.errors?.minlength && password.touched"
+          >Password must be contain at least 6 characters.</span
+        >
+      </div>
+      <div class="d-grid gap-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="logInForm.invalid"
+        >
+          Log in
+        </button>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="logInPassword">Password</label>
-    <input
-      type="password"
-      ngModel
-      name="password"
-      required
-      #password="ngModel"
-      placeholder="Password"
-    />
-  </div>
-  <button type="submit" [disabled]="signUpForm.invalid">Log in</button>
-</form>
+</div>

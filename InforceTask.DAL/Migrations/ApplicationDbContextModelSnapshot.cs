@@ -78,8 +78,8 @@ namespace InforceTask.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "pashaprujma@gmail.com",
-                            Password = "admin",
+                            Email = "admin@gmail.com",
+                            Password = "123456",
                             Role = 1,
                             UserName = "admin"
                         });

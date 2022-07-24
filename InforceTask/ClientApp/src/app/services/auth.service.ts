@@ -15,6 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private store: Store<AppState>) {}
 
   logIn(email: string, password: string) {
+
     return this.http.post(environment.Url + 'user/authenticate', {
       email,
       password,
@@ -40,13 +41,19 @@ export class AuthService {
   formatUser(data: any) {
     let access_token = data.tokens.accessToken;
     let userId = data.user.id;
-    localStorage.setItem('access_token', data.tokens.accessToken);
-    localStorage.setItem('user_data', JSON.stringify(data.user));
-    document.cookie = `refresh_token=${data.tokens.refreshToken}`;
     let decodedJwt: JwtClaims = jwt<JwtClaims>(access_token);
-    console.log(data);
-    console.log(decodedJwt);
-    return new User(userId, decodedJwt.email, decodedJwt.role);
+    let user = new User(
+      userId,
+      decodedJwt.name,
+      decodedJwt.email,
+      decodedJwt.role
+    );
+
+    localStorage.setItem('access_token', data.tokens.accessToken);
+    localStorage.setItem('user_data', JSON.stringify(user));
+    document.cookie = `refresh_token=${data.tokens.refreshToken}`;
+
+    return new User(userId, decodedJwt.name, decodedJwt.email, decodedJwt.role);
   }
 
   getUserFromLocalStorage() {
@@ -55,8 +62,9 @@ export class AuthService {
       const userData = JSON.parse(userDataString);
       const user = new User(
         userData.id,
+        userData.username,
         userData.email,
-        userData.role,
+        userData.role
       );
       return user;
     }
@@ -65,12 +73,8 @@ export class AuthService {
 
   getErrorMessage(message: string) {
     switch (message) {
-      case 'EMAIL_NOT_FOUND':
-        return 'Email Not Found';
-      case 'INVALID_PASSWORD':
-        return 'Invalid Password';
-      case 'EMAIL_EXISTS':
-        return 'Email already exists';
+      case 'Incorrect username or password!':
+        return 'Incorrect username or password!';
       default:
         return 'Unknown error occurred. Please try again';
     }

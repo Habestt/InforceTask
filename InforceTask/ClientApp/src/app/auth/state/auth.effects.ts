@@ -12,7 +12,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { setErrorMessage, setLoadingSpinner } from 'src/app/store/shared/shared.actions';
+import {
+  setErrorMessage,
+  setLoadingSpinner,
+} from 'src/app/store/shared/shared.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -38,7 +41,7 @@ export class AuthEffects {
           catchError((errResp) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
             const errorMessage = this.authService.getErrorMessage(
-              errResp.error.error.message
+              errResp.error
             );
             return of(setErrorMessage({ message: errorMessage }));
           })
@@ -68,5 +71,4 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
-
 }

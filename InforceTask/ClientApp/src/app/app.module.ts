@@ -21,6 +21,7 @@ import { SignUpComponent } from './auth/pages/sign-up/sign-up.component';
 import { LogInComponent } from './auth/pages/log-in/log-in.component';
 import { AuthEffects } from './auth/state/auth.effects';
 import { authReducer } from './auth/state/auth.reducer';
+import { AuthGuard } from './services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { authReducer } from './auth/state/auth.reducer';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'short-url', component: ShortURLComponent },
+      { path: 'short-url', component: ShortURLComponent, canActivate: [AuthGuard] },
       { path: 'all-urls', component: AllUrlsComponent },
       { path: 'url-info', component: UrlInfoComponent },
       { path: 'sign-up', component: SignUpComponent },

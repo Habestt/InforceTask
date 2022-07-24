@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/app.state';
 import { getUrls } from 'src/app/url/state/url.selector';
 import { deleteUrl, loadUrls } from 'src/app/url/state/url.actions';
 import { UrlInfoComponent } from 'src/app/url/pages/url-info/url-info.component';
+import { isAuthenticated } from 'src/app/auth/state/auth.selector';
 
 @Component({
   selector: 'app-all-urls',
@@ -13,10 +14,12 @@ import { UrlInfoComponent } from 'src/app/url/pages/url-info/url-info.component'
 })
 export class AllUrlsComponent implements OnInit {
   urls?: Observable<Url[]>;
-
+  isAuthenticated: Observable<boolean>;
   @ViewChild(UrlInfoComponent) child: any;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+    this.isAuthenticated = this.store.select(isAuthenticated);
+  }
 
   ngOnInit(): void {
     this.urls = this.store.select(getUrls);

@@ -10,7 +10,7 @@ namespace InforceTask.DAL.Context
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }        
+        public DbSet<User> Users { get; set; }
         public DbSet<URL> URLs { get; set; }
 
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
@@ -20,16 +20,17 @@ namespace InforceTask.DAL.Context
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {            
+        {
             modelBuilder.Entity<User>().HasData(
-                new User {
+                new User
+                {
                     Id = 1,
                     UserName = "admin",
-                    Password = "admin",
-                    Email = "pashaprujma@gmail.com",
+                    Password = "123456",
+                    Email = "admin@gmail.com",
                     Role = Enums.Role.Administrator,
                 });
-                         
+
 
         }
     }

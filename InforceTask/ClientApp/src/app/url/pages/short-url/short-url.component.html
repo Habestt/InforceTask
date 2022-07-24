@@ -1,6 +1,28 @@
-<h1 id="tableLabel">URL shorter</h1>
-
-<form #urlForm="ngForm" (ngSubmit)="Add(urlForm.value)">
-  <input type="text" ngModel name="originalUrl" placeholder="Entre URL">
-  <button>Short</button>
-</form>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h1>URL shorter</h1>
+    <hr />
+    <form #urlForm="ngForm" (ngSubmit)="Add(urlForm.value)">
+      <div class="mb-3">
+        <input
+          type="url"
+          ngModel
+          name="originalUrl"
+          class="form-control"
+          require
+          #url="ngModel"
+          placeholder="Entre URL"
+        />
+        <span class="error" *ngIf="url.errors?.required && url.touched"
+          >URL is required</span
+        >
+        <span class="error" *ngIf="url.errors?.url && url.touched"
+          >URL is invalid</span
+        >
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="urlForm.invalid">Short</button>
+      </div>
+    </form>
+  </div>
+</div>
