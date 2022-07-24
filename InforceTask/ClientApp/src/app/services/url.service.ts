@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { Url } from '../global/models/url';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -12,6 +11,10 @@ export class UrlsService {
 
   getUrls(): Observable<Url[]> {
     return this.http.get<Url[]>(environment.Url + 'url/getAll');
+  }
+
+  addUrls(originalUrl: string) {
+    return this.http.post(environment.Url + 'url/create', originalUrl);
   }
 
   deleteUrl(id: number) {

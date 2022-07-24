@@ -1,0 +1,6 @@
+<h1 id="tableLabel">URL shorter</h1>
+
+<form #urlForm="ngForm" (ngSubmit)="Add(urlForm.value)">
+  <input type="text" ngModel name="originalUrl" placeholder="Entre URL">
+  <button>Short</button>
+</form>

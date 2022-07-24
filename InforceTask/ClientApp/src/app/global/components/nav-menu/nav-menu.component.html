@@ -26,13 +26,19 @@
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/all-urls']">All URLs</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/short-url']">Short URL</a>
+          </li>
+          <li class="nav-item" *ngIf="!(isAuthenticated | async)" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/log-in']">Log in</a>
+          </li>
+          <li class="nav-item" *ngIf="!(isAuthenticated | async)" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/sign-up']">Sign up</a>
+          </li>
+          <li class="nav-item" *ngIf="isAuthenticated | async" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" (click)="onLogout($event)" [routerLink]="['/log-in']">Log out</a>
           </li>
         </ul>
       </div>

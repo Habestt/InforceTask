@@ -18,6 +18,7 @@ namespace InforceTask.BLL.Configurations.Autofac
         {
             builder.RegisterType<URLRepository>().As<IRepository<URL>>().SingleInstance();
             builder.RegisterType<UserRepository>().As<IRepository<User>>().SingleInstance();
+            builder.RegisterType<UserRefreshTokenRepository>().As<IRepository<UserRefreshToken>>().SingleInstance();
             builder.RegisterType<URLService>().As<IURLService>().SingleInstance();
             builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
         }

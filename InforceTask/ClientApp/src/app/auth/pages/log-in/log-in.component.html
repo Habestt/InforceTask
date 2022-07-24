@@ -1,0 +1,26 @@
+<h3>Sign up</h3>
+<form #signUpForm="ngForm" (ngSubmit)="logIn(signUpForm.value)">
+  <div class="form-group">
+    <label for="logInEmail">Email</label>
+    <input
+      type="email"
+      ngModel
+      name="email"
+      required
+      #email="ngModel"
+      placeholder="Enter email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="logInPassword">Password</label>
+    <input
+      type="password"
+      ngModel
+      name="password"
+      required
+      #password="ngModel"
+      placeholder="Password"
+    />
+  </div>
+  <button type="submit" [disabled]="signUpForm.invalid">Log in</button>
+</form>

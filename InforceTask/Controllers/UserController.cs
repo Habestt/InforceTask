@@ -10,7 +10,7 @@ namespace GameStore.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private IUserService _userService;
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -29,15 +29,16 @@ namespace GameStore.Controllers
         }
 
         [HttpPost("create")]
-        public async Task Create([FromBody] CreateUserDTO entity)
+        public async Task<IActionResult> Create([FromBody] CreateUserDTO entity)
         {
             try
             {
                 await _userService.AddAsync(entity);
+                return Ok(entity);
             }
             catch (ArgumentException ex)
             {
-                BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
 
         }
@@ -49,28 +50,30 @@ namespace GameStore.Controllers
         }
 
         [HttpPut("update")]
-        public async Task Update([FromBody] UserDTO entity)
+        public async Task<IActionResult> Update([FromBody] UserDTO entity)
         {
             await _userService.UpdateAsync(entity);
+            return Ok(entity);
         }
 
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public async Task LoginAsync([FromBody] AuthDTO authDto)
+        public async Task<IActionResult> LoginAsync([FromBody] AuthDTO authDto)
         {
             try
             {
                 var tokens = await _userService.LoginAsync(authDto);
                 var user = await _userService.IsValidUserAsync(authDto.Email, authDto.Password);
+                return Ok(new { tokens, user });
             }
             catch (ArgumentException)
             {
-                Unauthorized("Incorrect username or password!");
+                return Unauthorized("Incorrect username or password!");
             }
             catch (OperationCanceledException)
             {
-                Unauthorized("Invalid Attempt!");
+                return Unauthorized("Invalid Attempt!");
             }
         }
 
