@@ -12,11 +12,11 @@
   <tbody>
     <tr>
       <td>{{ url.originalUrl }}</td>
-      <td>{{ baseUrl + url.shortUrl }}</td>
+      <td>
+        <a href={{url.shortUrl}}>{{ baseUrl + url.shortUrl }}</a>
+      </td>
       <td>{{ url.createdAt }}</td>
       <td>{{ url.createdByUserName }}</td>
     </tr>
   </tbody>
 </table>
-
-

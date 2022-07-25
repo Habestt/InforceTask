@@ -11,7 +11,9 @@
   <tbody>
     <tr *ngFor="let url of urls | async">
       <td>{{ url.originalUrl }}</td>
-      <td>{{ baseUrl + url.shortUrl }}</td>
+      <td>
+        <a href={{url.shortUrl}}>{{ baseUrl + url.shortUrl }}</a>
+      </td>
       <td>
         <button
           type="button"
