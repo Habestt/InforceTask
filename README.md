@@ -3,7 +3,7 @@
 * type _npm istall_ in _terminal_ in _ClientApp_ folder using VS Code
 * type _update-database_ in _Package Manager Console_ using Visual Studio
 * run a project
-* admin login: admin@gmail.com / adminadmin
+* admin login: admin@gmail.com / 123456
 
 #### Libraries used ####
 
