@@ -19,7 +19,9 @@
 * Autofac container and AutoMapper configuration were moved to Configuration Folder
 * Used depedency injection
 * Used NgRx for saving data to store
-* Deleting and adding (in short url tab) urls is only allowed for authorised users 
+* Add (in Short url tab) urls is only allowed for authorised users 
+* Users can delete only their own URLs, admin can delete all urls
+* Users can view their own URLs on My URLs tab
 * Avaible email, password, url validations
 * Url shortenner algorithm is located in Helpers folder
 * DataBase structure was build by code first 
