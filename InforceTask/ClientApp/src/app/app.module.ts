@@ -24,6 +24,7 @@ import { authReducer } from './auth/state/auth.reducer';
 import { AuthGuard } from './services/auth.guard';
 import { LoadingSpinnerComponent } from './global/components/loading-spinner/loading-spinner.component';
 import { sharedReducer } from './store/shared/shared.reducer';
+import { MyUrlsComponent } from './url/pages/my-urls/my-urls.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { sharedReducer } from './store/shared/shared.reducer';
     HomeComponent,
     ShortURLComponent,
     AllUrlsComponent,
+    MyUrlsComponent,
     UrlInfoComponent,
     SignUpComponent,
     LogInComponent,
@@ -50,6 +52,7 @@ import { sharedReducer } from './store/shared/shared.reducer';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'short-url', component: ShortURLComponent, canActivate: [AuthGuard] },
       { path: 'all-urls', component: AllUrlsComponent },
+      { path: 'my-urls', component: MyUrlsComponent, },
       { path: 'url-info', component: UrlInfoComponent },
       { path: 'sign-up', component: SignUpComponent },
       { path: 'log-in', component: LogInComponent },

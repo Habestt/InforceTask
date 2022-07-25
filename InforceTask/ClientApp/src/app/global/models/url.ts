@@ -3,4 +3,6 @@ export interface Url {
   shortUrl?: string;
   originalUrl?: string;
   createdAt?: string;
+  createdByUserName: string
+  userId: number;
 }

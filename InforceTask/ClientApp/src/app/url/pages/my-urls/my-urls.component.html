@@ -1,0 +1,21 @@
+<h1>My URLs</h1>
+<hr />
+<table class="table table-striped" aria-labelledby="tableLabel" *ngIf="urls">
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Shorted URL</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let url of urls | async">
+      <td>{{ url.originalUrl }}</td>
+      <td>{{ url.shortUrl }}</td>
+      <td>
+        <button type="button" class="btn btn-info btn-sm" routerLink="/url-info" [state]="url">Info</button
+        ><button type="button" class="btn btn-danger btn-sm" type="button" (click)="delete(url)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

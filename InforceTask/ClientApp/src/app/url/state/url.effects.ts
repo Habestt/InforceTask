@@ -50,7 +50,7 @@ export class UrlsEffects {
     return this.actions$.pipe(
       ofType(createUrl),
       exhaustMap((action) => {
-        return this.urlsService.addUrl(action.originalUrl).pipe(
+        return this.urlsService.addUrl(action.originalUrl, action.userId).pipe(
           map((data) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));
             return createUrlSuccess();

@@ -16,10 +16,12 @@ namespace InforceTask.BLL.Services
     public class URLService : IURLService
     {
         private readonly IRepository<URL> _urlRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public URLService(IRepository<URL> urlRepository)
+        public URLService(IRepository<URL> urlRepository, IRepository<User> userRepository)
         {
             _urlRepository = urlRepository;
+            _userRepository = userRepository;
         }
         public async Task<URLDTO> GetById(int id)
         {
@@ -58,11 +60,14 @@ namespace InforceTask.BLL.Services
 
             foreach (var url in URLs)
             {
+                User user = await _userRepository.GetByIdAsync(url.UserId);
+
                 urlDtos.Add(new URLDTO()
                 {
                     Id = url.Id,
                     OriginalUrl = url.OriginalUrl,
                     ShortUrl = ShortUrlHelper.Encode(url.Id),
+                    CreatedByUserName = user.UserName,
                     CreatedAt = url.CreatedAt
                 });
             }

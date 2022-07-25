@@ -13,8 +13,11 @@ export class UrlsService {
     return this.http.get<Url[]>(environment.Url + 'url/getAll');
   }
 
-  addUrl(originalUrl: string) {
-    return this.http.post(environment.Url + 'url/create', originalUrl);
+  addUrl(originalUrl: string, userId: number) {
+    return this.http.post(environment.Url + 'url/create', {
+      originalUrl,
+      userId
+    });
   }
 
   deleteUrl(id: number) {

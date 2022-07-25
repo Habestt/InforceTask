@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Url } from '../../../global/models/url';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { getUrls } from 'src/app/url/state/url.selector';
 import { deleteUrl, loadUrls } from 'src/app/url/state/url.actions';
-import { UrlInfoComponent } from 'src/app/url/pages/url-info/url-info.component';
-import { isAuthenticated } from 'src/app/auth/state/auth.selector';
+import {
+  isAdmin,
+  isAuthenticated,
+  isMyUrl,
+} from 'src/app/auth/state/auth.selector';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.actions';
 
 @Component({
@@ -15,15 +18,14 @@ import { setLoadingSpinner } from 'src/app/store/shared/shared.actions';
 })
 export class AllUrlsComponent implements OnInit {
   urls?: Observable<Url[]>;
-  isAuthenticated: Observable<boolean>;
-  @ViewChild(UrlInfoComponent) child: any;
+  isAdmin: Observable<boolean>;
 
   constructor(private store: Store<AppState>) {
-    this.isAuthenticated = this.store.select(isAuthenticated);
+    this.isAdmin = this.store.select(isAdmin);
     this.store.dispatch(setLoadingSpinner({ status: true }));
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.urls = this.store.select(getUrls);
     this.store.dispatch(loadUrls());
   }
@@ -31,5 +33,16 @@ export class AllUrlsComponent implements OnInit {
   delete(url: Url) {
     const id: number = url.id;
     this.store.dispatch(deleteUrl({ id }));
+  }
+
+  showButton(url: Url) {
+    let check = false;
+
+    const admin = this.store.select(isAdmin);
+    admin.subscribe((result) => (check = result));
+
+    if (!check) return this.store.select(isMyUrl(url.createdByUserName));
+
+    return admin;
   }
 }

@@ -15,10 +15,10 @@ namespace InforceTask.DAL.Models
 
         [Required]
         public string OriginalUrl { get; set; }
-        
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        //[ForeignKey("User")]
-        //public int? UserId { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
     }
 }

@@ -18,7 +18,7 @@ export const loadUrlsSuccess = createAction(
 
 export const createUrl = createAction(
   CREATE_URL_Action,
-  props<{ originalUrl: string }>()
+  props<{ originalUrl: string, userId: number }>()
 );
 
 export const createUrlSuccess = createAction(CREATE_URL_SUCCESS);

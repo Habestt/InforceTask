@@ -5,7 +5,7 @@
   <div class="col-md-6 offset-md-3">
     <h1>URL shorter</h1>
     <hr />
-    <form #urlForm="ngForm" (ngSubmit)="Add(urlForm.value)">
+    <form #urlForm="ngForm" (ngSubmit)="Add(urlForm.value.originalUrl)">
       <div class="mb-3">
         <input
           type="url"
