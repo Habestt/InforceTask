@@ -37,7 +37,7 @@ namespace InforceTask.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -113,7 +113,9 @@ namespace InforceTask.DAL.Migrations
                 {
                     b.HasOne("InforceTask.DAL.Models.User", null)
                         .WithMany("URLs")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InforceTask.DAL.Models.User", b =>

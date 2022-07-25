@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Url } from '../../../global/models/url';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,8 +19,10 @@ import { setLoadingSpinner } from 'src/app/store/shared/shared.actions';
 export class AllUrlsComponent implements OnInit {
   urls?: Observable<Url[]>;
   isAdmin: Observable<boolean>;
+  baseUrl: string;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, @Inject('BASE_URL') baseUrl: string) {
+    this.baseUrl = baseUrl
     this.isAdmin = this.store.select(isAdmin);
     this.store.dispatch(setLoadingSpinner({ status: true }));
   }

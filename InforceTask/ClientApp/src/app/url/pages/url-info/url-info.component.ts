@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 })
 export class UrlInfoComponent {
   url: any;
-  check: any;
+  baseUrl: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, @Inject('BASE_URL') baseUrl: string) {
+    this.baseUrl = baseUrl;
     this.url = this.router.getCurrentNavigation()?.extras.state;
   }
 }

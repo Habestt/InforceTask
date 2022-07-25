@@ -12,7 +12,7 @@ export const getMyUrls = (userName: string) =>
     return state.urls.filter((urls) => urls.createdByUserName === userName);
   });
 
-export const getUrlByOriginalUrl = (originalUrl: string) =>
+export const getUrlByShortUrl = (shortUrl: string) =>
   createSelector(getUrlsState, (state) => {
-    return state.urls.find((url) => url.originalUrl === originalUrl);
+    return state.urls.find((url) => url.shortUrl === shortUrl);
   });

@@ -25,6 +25,7 @@ import { AuthGuard } from './services/auth.guard';
 import { LoadingSpinnerComponent } from './global/components/loading-spinner/loading-spinner.component';
 import { sharedReducer } from './store/shared/shared.reducer';
 import { MyUrlsComponent } from './url/pages/my-urls/my-urls.component';
+import { RedirectUrlComponent } from './url/pages/redirect-url/redirect-url.component';
 
 @NgModule({
   declarations: [
@@ -37,12 +38,17 @@ import { MyUrlsComponent } from './url/pages/my-urls/my-urls.component';
     UrlInfoComponent,
     SignUpComponent,
     LogInComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    RedirectUrlComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    StoreModule.forRoot({ urls: urlsReducer, auth: authReducer, shared: sharedReducer }),
+    StoreModule.forRoot({
+      urls: urlsReducer,
+      auth: authReducer,
+      shared: sharedReducer,
+    }),
     EffectsModule.forRoot([UrlsEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
@@ -50,12 +56,17 @@ import { MyUrlsComponent } from './url/pages/my-urls/my-urls.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'short-url', component: ShortURLComponent, canActivate: [AuthGuard] },
+      {
+        path: 'short-url',
+        component: ShortURLComponent,
+        canActivate: [AuthGuard],
+      },
       { path: 'all-urls', component: AllUrlsComponent },
-      { path: 'my-urls', component: MyUrlsComponent, },
+      { path: 'my-urls', component: MyUrlsComponent, canActivate: [AuthGuard] },
       { path: 'url-info', component: UrlInfoComponent },
       { path: 'sign-up', component: SignUpComponent },
       { path: 'log-in', component: LogInComponent },
+      { path: ':link', component: RedirectUrlComponent },
     ]),
   ],
   providers: [],

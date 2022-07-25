@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Url } from '../../../global/models/url';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -14,13 +14,18 @@ import { getUsersUserName } from 'src/app/auth/state/auth.selector';
 })
 export class MyUrlsComponent implements OnInit {
   urls?: Observable<Url[]>;
-  userName: string = "";
+  userName: string = '';
+  baseUrl: string;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    @Inject('BASE_URL') baseUrl: string
+  ) {
+    this.baseUrl = baseUrl;
     this.store.dispatch(setLoadingSpinner({ status: true }));
     this.store
       .select(getUsersUserName)
-      .subscribe((result) => ((this.userName = result)));
+      .subscribe((result) => (this.userName = result));
   }
 
   ngOnInit(): void {
