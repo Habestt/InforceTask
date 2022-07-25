@@ -69,7 +69,7 @@ namespace GameStore.Controllers
             }
             catch (ArgumentException)
             {
-                return Unauthorized("Incorrect username or password!");
+                return Unauthorized("Incorrect email or password!");
             }
             catch (OperationCanceledException)
             {

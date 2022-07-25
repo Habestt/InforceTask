@@ -5,6 +5,8 @@ import {
   autoLogout,
   loginStart,
   loginSuccess,
+  signupStart,
+  signupSuccess,
 } from './auth.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
@@ -46,6 +48,30 @@ export class AuthEffects {
             return of(setErrorMessage({ message: errorMessage }));
           })
         );
+      })
+    );
+  });
+
+  signUp$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(signupStart),
+      exhaustMap((action) => {
+        return this.authService
+          .signUp(action.userName, action.email, action.password)
+          .pipe(
+            map((data) => {
+              this.router.navigate(['/log-in']);
+              this.store.dispatch(setLoadingSpinner({ status: false }));
+              return signupSuccess({ redirect: true });
+            }),
+            catchError((errResp) => {
+              this.store.dispatch(setLoadingSpinner({ status: false }));
+              const errorMessage = this.authService.getErrorMessage(
+                errResp.error
+              );
+              return of(setErrorMessage({ message: errorMessage }));
+            })
+          );
       })
     );
   });

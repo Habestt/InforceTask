@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.actions';
+import { getErrorMessage } from 'src/app/store/shared/shared.selector';
 import { loginStart } from '../../state/auth.actions';
 
 @Component({
@@ -9,11 +11,12 @@ import { loginStart } from '../../state/auth.actions';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
 })
-
 export class LogInComponent {
-  constructor(
-    private store: Store<AppState>,
-  ) {}
+  errorMessage: Observable<string>;
+
+  constructor(private store: Store<AppState>) {
+    this.errorMessage = this.store.select(getErrorMessage);
+  }
 
   logIn(form: any) {
     const email = form.email;

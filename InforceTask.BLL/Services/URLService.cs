@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace InforceTask.BLL.Services
@@ -71,6 +72,14 @@ namespace InforceTask.BLL.Services
 
         public async Task Add(CreateShortUrlDTO entity)
         {
+            string pattern = @"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+            Regex regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            bool validate = regex.IsMatch(entity.OriginalUrl);
+
+            var url = await _urlRepository.FindFirstAsync(expression: x => x.OriginalUrl == entity.OriginalUrl);
+
+            if (url is not null) throw new ArgumentException("URL already exist");
+            if (!validate) throw new ArgumentException("URL is not valid");
             await _urlRepository.AddAsync(AutoMapper<CreateShortUrlDTO, URL>.Map(entity));
         }
 

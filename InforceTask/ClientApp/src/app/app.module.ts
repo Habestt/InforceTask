@@ -23,7 +23,6 @@ import { AuthEffects } from './auth/state/auth.effects';
 import { authReducer } from './auth/state/auth.reducer';
 import { AuthGuard } from './services/auth.guard';
 import { LoadingSpinnerComponent } from './global/components/loading-spinner/loading-spinner.component';
-import { appReducer } from './store/app.state';
 import { sharedReducer } from './store/shared/shared.reducer';
 
 @NgModule({

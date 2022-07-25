@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
 import { setLoadingSpinner } from 'src/app/store/shared/shared.actions';
+import { getErrorMessage } from 'src/app/store/shared/shared.selector';
+import { signupStart } from '../../state/auth.actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,14 +12,17 @@ import { setLoadingSpinner } from 'src/app/store/shared/shared.actions';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent {
-  constructor(
-    private store: Store<AppState>,
-    private authSrvice: AuthService
-  ) {}
+  errorMessage: Observable<string>;
+
+  constructor(private store: Store<AppState>) {
+    this.errorMessage = this.store.select(getErrorMessage);
+  }
 
   Add(form: any) {
-    this.authSrvice
-      .signUp(form.username, form.email, form.password)
-      .subscribe(result => console.log(result));
+    const userName = form.username;
+    const email = form.email;
+    const password = form.password;
+    this.store.dispatch(setLoadingSpinner({ status: true }));
+    this.store.dispatch(signupStart({ userName, email, password }));
   }
 }

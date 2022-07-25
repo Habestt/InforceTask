@@ -20,10 +20,10 @@ export class AllUrlsComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     this.isAuthenticated = this.store.select(isAuthenticated);
+    this.store.dispatch(setLoadingSpinner({ status: true }));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(setLoadingSpinner({ status: true }));
     this.urls = this.store.select(getUrls);
     this.store.dispatch(loadUrls());
   }

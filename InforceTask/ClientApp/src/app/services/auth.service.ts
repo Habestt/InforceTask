@@ -15,7 +15,6 @@ export class AuthService {
   constructor(private http: HttpClient, private store: Store<AppState>) {}
 
   logIn(email: string, password: string) {
-
     return this.http.post(environment.Url + 'user/authenticate', {
       email,
       password,
@@ -73,8 +72,10 @@ export class AuthService {
 
   getErrorMessage(message: string) {
     switch (message) {
-      case 'Incorrect username or password!':
-        return 'Incorrect username or password!';
+      case 'Incorrect email or password!':
+        return 'Incorrect email or password!';
+      case 'User with such email or login already exist':
+        return 'User with such email or login already exist';
       default:
         return 'Unknown error occurred. Please try again';
     }

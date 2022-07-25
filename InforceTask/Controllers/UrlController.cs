@@ -17,9 +17,17 @@ namespace InforceTask.Controllers
         }
 
         [HttpPost("create")]
-        public async Task Create([FromBody] CreateShortUrlDTO createUrl)
+        public async Task<IActionResult> Create([FromBody] CreateShortUrlDTO createUrl)
         {
-            await _urlService.Add(createUrl);
+            try
+            {
+                await _urlService.Add(createUrl);
+                return Ok(createUrl);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("GetByOriginalUrl/{url}")]

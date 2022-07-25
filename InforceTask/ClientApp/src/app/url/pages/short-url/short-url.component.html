@@ -1,3 +1,6 @@
+<div class="alert alert-danger" *ngIf="errorMessage | async as error">
+  {{ error }}
+</div>
 <div class="row">
   <div class="col-md-6 offset-md-3">
     <h1>URL shorter</h1>

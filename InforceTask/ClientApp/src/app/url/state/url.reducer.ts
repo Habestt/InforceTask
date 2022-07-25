@@ -1,4 +1,8 @@
-import { loadUrlsSuccess, deleteUrlSuccess } from './url.actions';
+import {
+  loadUrlsSuccess,
+  deleteUrlSuccess,
+  createUrlSuccess,
+} from './url.actions';
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './url.state';
 
@@ -8,6 +12,12 @@ const _urlsReducer = createReducer(
     return {
       ...state,
       urls: action.urls,
+    };
+  }),
+
+  on(createUrlSuccess, (state, action) => {
+    return {
+      ...state,
     };
   }),
 

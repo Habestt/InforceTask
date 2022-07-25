@@ -13,11 +13,22 @@ export class UrlsService {
     return this.http.get<Url[]>(environment.Url + 'url/getAll');
   }
 
-  addUrls(originalUrl: string) {
+  addUrl(originalUrl: string) {
     return this.http.post(environment.Url + 'url/create', originalUrl);
   }
 
   deleteUrl(id: number) {
     return this.http.delete(environment.Url + 'url/delete/' + id);
+  }
+
+  getErrorMessage(message: string) {
+    switch (message) {
+      case 'URL already exist':
+        return 'URL already exist';
+      case 'URL is not valid':
+        return 'URL is not valid';
+      default:
+        return 'Unknown error occurred. Please try again';
+    }
   }
 }

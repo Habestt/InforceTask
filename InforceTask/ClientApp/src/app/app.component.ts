@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     this.showLoading = this.store.select(getLoading);
+
   }
 
   ngOnInit(): void {
