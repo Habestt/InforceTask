@@ -18,6 +18,7 @@
 * the project is based on multi-layered architecture: __Data Access__, __Business Logic__, __Presentation__ layers
 * Autofac container and AutoMapper configuration were moved to Configuration Folder
 * Used depedency injection
+* Used NgRx for saving data to store
 * Deleting and adding (in short url tab) urls is only allowed for authorised users 
 * Avaible email, password, url validations
 * Url shortenner algorithm is located in Helpers folder
