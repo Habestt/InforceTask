@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './global/components/nav-menu/nav-menu.component';
-import { HomeComponent } from './pages/home/home.component';
 import { ShortURLComponent } from './url/pages/short-url/short-url.component';
 import { AllUrlsComponent } from './url/pages/all-urls/all-urls.component';
 import { StoreModule } from '@ngrx/store';
@@ -31,7 +30,6 @@ import { RedirectUrlComponent } from './url/pages/redirect-url/redirect-url.comp
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
     ShortURLComponent,
     AllUrlsComponent,
     MyUrlsComponent,
@@ -55,13 +53,12 @@ import { RedirectUrlComponent } from './url/pages/redirect-url/redirect-url.comp
     }),
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: AllUrlsComponent, pathMatch: 'full' },
       {
         path: 'short-url',
         component: ShortURLComponent,
         canActivate: [AuthGuard],
       },
-      { path: 'all-urls', component: AllUrlsComponent },
       { path: 'my-urls', component: MyUrlsComponent, canActivate: [AuthGuard] },
       { path: 'url-info', component: UrlInfoComponent },
       { path: 'sign-up', component: SignUpComponent },
