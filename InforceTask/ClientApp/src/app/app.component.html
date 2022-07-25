@@ -1,4 +1,5 @@
 <body>
+  <app-loading-spinner *ngIf="showLoading | async"></app-loading-spinner>
   <app-nav-menu></app-nav-menu>
   <div class="container">
     <router-outlet></router-outlet>
